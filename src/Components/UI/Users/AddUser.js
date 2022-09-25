@@ -9,6 +9,8 @@ function AddUser(prop) {
   const [enteredUserName, setEnteredUserName] = useState("");
   const [enteredAge, setEnteredAge] = useState("");
   const [error, setError] = useState();
+  //initially error is empty
+  //means contain no object
   const userNameChangeHandler = (event) => {
     setEnteredUserName(event.target.value);
   };
@@ -48,6 +50,7 @@ function AddUser(prop) {
 function errorHandler()
 {
     setError(null)
+    //here again making error empty by filling null in it
 }
 
   return (
@@ -59,6 +62,9 @@ function errorHandler()
       ></ErrorModal>}
       <Card className={classes.input}>
         <form onSubmit={addUserHandler}>
+
+        {/* for module.css className should be in {} and not in "" */}
+
           <label htmlFor="user_name">User Name</label>
           <input
             type="text"

@@ -9,3 +9,6 @@ function Button(prop)
 }
 
 export default Button
+
+// for type, prop.type means type which will be given where this component is added will work , if not given "button" will be default type
+// for  onClick  onClick of place where this component used will work
