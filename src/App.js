@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState, Fragment} from "react";
 import AddUser from "./Components/UI/Users/AddUser";
 import UserList from "./Components/UI/Users/UserList";
 
@@ -15,10 +15,10 @@ const[setArray,editSetArray]=useState(userArray)
   }
 
   return (
-    <div>
+    <Fragment>
       <AddUser userObject={userObjectHandler}></AddUser>
       <UserList userArray={setArray}></UserList>
-    </div>
+      </Fragment>
   );
 }
 
