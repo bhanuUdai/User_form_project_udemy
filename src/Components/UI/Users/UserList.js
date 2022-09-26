@@ -14,7 +14,7 @@ if(prop.userArray.length===0)
       {prop.userArray.map((user) => {
         return (
           <li key ={Math.random().toString()}>
-            {user.name} (Age is {user.age})
+            {user.name} (Age is {user.age}) (and College is {user.college})
           </li>
         );
       })}

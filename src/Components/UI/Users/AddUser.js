@@ -9,7 +9,7 @@ import Wrapper from "./Wrapper";
 function AddUser(prop) {
   const inputRefName = useRef();
   const inputRefAge = useRef();
-
+  const inputCollege = useRef();
   // we will use these variables as ref=inputRefName in input
 
   // const [enteredUserName, setEnteredUserName] = useState("");
@@ -29,15 +29,17 @@ function AddUser(prop) {
     event.preventDefault();
     const enteredRefName = inputRefName.current.value;
     const enteredRefAge = inputRefAge.current.value;
-
+    const enteredRefCollege = inputCollege.current.value;
     let Obj = {
       name: enteredRefName,
       age: enteredRefAge,
+      college: enteredRefCollege,
     };
 
     if (
       enteredRefName.trim().length === 0 ||
-      enteredRefAge.trim().length === 0
+      enteredRefAge.trim().length === 0 ||
+      enteredRefCollege.trim().length === 0
     ) {
       setError({
         title: "Error!!",
@@ -61,6 +63,8 @@ function AddUser(prop) {
     // setEnteredAge("");
     inputRefName.current.value = "";
     inputRefAge.current.value = "";
+
+    //using API to empty input after clicking Add User
   }
 
   function errorHandler() {
@@ -98,6 +102,13 @@ function AddUser(prop) {
             // value={enteredAge}
             // onChange={userAgeChangeHandler}
             ref={inputRefAge}
+          ></input>
+          <label htmlFor="college_name">College Name</label>
+          <input
+            type="text"
+            id="college_name"
+            name="collegename"
+            ref={inputCollege}
           ></input>
           <Button type="submit">Add User</Button>
         </form>
