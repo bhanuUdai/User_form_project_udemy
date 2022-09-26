@@ -3,89 +3,106 @@ import Card from "../Card";
 import classes from "./AddUser.module.css";
 import Button from "../Button";
 import ErrorModal from "../ErrorModal";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Wrapper from "./Wrapper";
 
 function AddUser(prop) {
-  const [enteredUserName, setEnteredUserName] = useState("");
-  const [enteredAge, setEnteredAge] = useState("");
+  const inputRefName = useRef();
+  const inputRefAge = useRef();
+
+  // we will use these variables as ref=inputRefName in input
+
+  // const [enteredUserName, setEnteredUserName] = useState("");
+  // const [enteredAge, setEnteredAge] = useState("");
   const [error, setError] = useState();
   //initially error is empty
   //means contain no object
-  const userNameChangeHandler = (event) => {
-    setEnteredUserName(event.target.value);
-  };
+  // const userNameChangeHandler = (event) => {
+  //   setEnteredUserName(event.target.value);
+  // };
 
-  const userAgeChangeHandler = (event) => {
-    setEnteredAge(event.target.value);
-  };
-
-  let Obj = {
-    name: enteredUserName,
-    age: enteredAge,
-  };
+  // const userAgeChangeHandler = (event) => {
+  //   setEnteredAge(event.target.value);
+  // };
 
   function addUserHandler(event) {
     event.preventDefault();
-    if (enteredUserName.trim().length === 0 || enteredAge.trim().length === 0) {
+    const enteredRefName = inputRefName.current.value;
+    const enteredRefAge = inputRefAge.current.value;
+
+    let Obj = {
+      name: enteredRefName,
+      age: enteredRefAge,
+    };
+
+    if (
+      enteredRefName.trim().length === 0 ||
+      enteredRefAge.trim().length === 0
+    ) {
       setError({
         title: "Error!!",
         content: "Pleanse fill the inputs",
       });
+
       return;
     }
-    if (+enteredAge < 1) {
+
+    if (+enteredRefAge < 1) {
       // usestate always return string and here number inside string will behave like number but we still use (+) sign to mark it number and not string
-        setError({
-            title: "Error!!",
-            content: "Age should be greater then 1 (age>1)",
-          });
+      setError({
+        title: "Error!!",
+        content: "Age should be greater then 1 (age>1)",
+      });
       return;
     }
-    console.log(enteredUserName, enteredAge);
     prop.userObject(Obj);
-    setEnteredUserName("");
-    setEnteredAge("");
+
+    // setEnteredUserName("");
+    // setEnteredAge("");
+    inputRefName.current.value = "";
+    inputRefAge.current.value = "";
   }
 
-function errorHandler()
-{
-    setError(null)
+  function errorHandler() {
+    setError(null);
     //here again making error empty by filling null in it
-}
+  }
 
   return (
     <Wrapper>
-      {error && <ErrorModal
-        title={error.title}
-        content={error.content}
-        onCancel={errorHandler}
-      ></ErrorModal>}
+      {error && (
+        <ErrorModal
+          title={error.title}
+          content={error.content}
+          onCancel={errorHandler}
+        ></ErrorModal>
+      )}
       <Card className={classes.input}>
         <form onSubmit={addUserHandler}>
-
-        {/* for module.css className should be in {} and not in "" */}
+          {/* for module.css className should be in {} and not in "" */}
 
           <label htmlFor="user_name">User Name</label>
           <input
             type="text"
             id="user_name"
             name="username"
-            value={enteredUserName}
-            onChange={userNameChangeHandler}
+            // value={enteredUserName}
+            // onChange={userNameChangeHandler}
+            ref={inputRefName}
           ></input>
           <label htmlFor="user_age">Age</label>
           <input
             type="number"
             id="user_age"
             name="userage"
-            value={enteredAge}
-            onChange={userAgeChangeHandler}
+            // value={enteredAge}
+            // onChange={userAgeChangeHandler}
+            ref={inputRefAge}
           ></input>
           <Button type="submit">Add User</Button>
         </form>
       </Card>
-      </Wrapper>
+    </Wrapper>
   );
 }
 export default AddUser;
