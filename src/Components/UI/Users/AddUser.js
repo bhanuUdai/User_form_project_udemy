@@ -36,14 +36,17 @@ function AddUser(prop) {
       college: enteredRefCollege,
     };
 
+    
+
+
     if (
       enteredRefName.trim().length === 0 ||
-      enteredRefAge.trim().length === 0 ||
-      enteredRefCollege.trim().length === 0
+      enteredRefAge.trim().length === 0 
+      // enteredRefCollege.trim().length === 0
     ) {
       setError({
         title: "Error!!",
-        content: "Pleanse fill the inputs",
+        content: "Please fill the inputs",
       });
 
       return;
@@ -55,6 +58,18 @@ function AddUser(prop) {
         title: "Error!!",
         content: "Age should be greater then 1 (age>1)",
       });
+      return;
+    }
+    if (
+      enteredRefName.trim().length > 0 &&
+      enteredRefAge > 0 &&
+      enteredRefCollege.trim().length === 0
+    ) {
+      setError({
+        title: "Error!!",
+        content: "Please fill the college inputs",
+      });
+
       return;
     }
     prop.userObject(Obj);
